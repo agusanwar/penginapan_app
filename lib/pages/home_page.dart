@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:staycationapp/models/city.dart';
+import 'package:staycationapp/models/info.dart';
 import 'package:staycationapp/models/space.dart';
 import 'package:staycationapp/shared/themes.dart';
 import 'package:staycationapp/widget/city_card.dart';
@@ -222,11 +223,15 @@ class HomePage extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    InfoCard(),
+                    InfoCard(
+                      Info(id: 1, imageUrl: 'assets/thumbnail.png', title: 'Informatioan Coronavac', updateAt: 'Upadate 1 feb 2022'),
+                    ),
                     SizedBox(
                       height: 20,
                     ),
-                    InfoCard(),
+                     InfoCard(
+                      Info(id: 2, imageUrl: 'assets/thumbnail.png', title: 'Informatioan Coronavac', updateAt: 'Upadate 1 feb 2022'),
+                    ),
                   ],
                 ),
                 ),
