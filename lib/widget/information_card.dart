@@ -30,7 +30,7 @@ class InfoCard extends StatelessWidget {
               height: 5,
             ),
             Text(
-              info.updateAt,
+             'Updated ${info.updateAt}',
               style: greyTextStyle.copyWith(
                 fontSize: 16,
               ),
