@@ -6,9 +6,9 @@ import 'package:http/http.dart' as http;
 import 'package:staycationapp/models/space.dart';
 
 class SpaceProvider extends ChangeNotifier {
-  getRecomondedSpaces() async {
+  dynamic getRecomondedSpaces() async {
     var result = await http
-        .get(Uri.parse('http://bwa-cozy.herokuapp.com/recommended-spaces'));
+        .get(Uri.parse('https://bwa-cozy.herokuapp.com/recommended-spaces'));
     print(result.statusCode);
     print(result.body);
 

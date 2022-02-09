@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:staycationapp/models/city.dart';
@@ -128,7 +130,7 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 24),
               child: Text(
-                'Recomdender Space',
+                'Staycation Recommendation',
                 style:
                     blackTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
               ),
@@ -137,107 +139,121 @@ class HomePage extends StatelessWidget {
               height: 15,
             ),
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: FutureBuilder(
-                  future: spaceProvider.getRecomondedSpaces(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      
-                      return Column(
-                        children: [
-                          SpaceCard(
-                            Space(
-                              id: 1,
-                              name: 'Minimalis House',
-                              imageUrl: 'assets/space1.png',
-                              price: 120,
-                              rating: 4,
-                              city: 'Panajung',
-                              country: 'Pangandaran',
-                              photos: [],
-                              phones: '',
-                              address: '', 
-                              mapUrl: '', 
-                               numberOfKitchens: 1, 
-                               numberOfCupboards: 1, 
-                               numberOfbadrooms: 1,
-                            ),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: FutureBuilder(//<List<Space>>
+                future: spaceProvider.getRecomondedSpaces(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) { //AsyncSnapshot<List<Space>>
+                  if (snapshot.hasData) { 
+                    List<Space> data = snapshot.data ?? [];
+
+                    int index = 0;
+
+                    return Column(
+                      children: data.map((item) {
+                        index++;
+                        return Container(
+                          child: SpaceCard(item),
+                          margin: EdgeInsets.only(
+                            top: index == 1 ? 0 : 30
                           ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          SpaceCard(
-                            Space(
-                              id: 2,
-                              name: 'Minimalis House',
-                              imageUrl: 'assets/space2.png',
-                              price: 120,
-                              rating: 5,
-                              city: 'Panajung',
-                              country: 'Pangandaran',
-                              photos: [],
-                              phones: '',
-                              address: '', 
-                              mapUrl: '', 
-                               numberOfKitchens: 1, 
-                               numberOfCupboards: 1, 
-                               numberOfbadrooms: 1,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          SpaceCard(
-                            Space(
-                              id: 3,
-                              name: 'Minimalis House',
-                              imageUrl: 'assets/space3.png',
-                              price: 120,
-                              rating: 4,
-                              city: 'Panajung',
-                              country: 'Pangandaran', 
-                              photos: [],
-                              phones: '',
-                              address: '', 
-                              mapUrl: '', 
-                               numberOfKitchens: 1, 
-                               numberOfCupboards: 1, 
-                               numberOfbadrooms: 1,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          SpaceCard(
-                            Space(
-                              id: 4,
-                              name: 'Minimalis House',
-                              imageUrl: 'assets/space4.png',
-                              price: 120,
-                              rating: 4,
-                              city: 'Panajung',
-                              country: 'Pangandaran',
-                              photos: [],
-                              phones: '',
-                              address: '', 
-                              mapUrl: '', 
-                               numberOfKitchens: 1, 
-                               numberOfCupboards: 1, 
-                               numberOfbadrooms: 1,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                        ],
-                      );
-                    }
-                    return Center(
-                      child: CircularProgressIndicator(),
+                        );
+                      }).toList(),
                     );
-                  },
-                ),
-                ),
+                    // return Column(
+                    //   children: [
+                    //     SpaceCard(
+                    //       Space(
+                    //         id: 1,
+                    //         name: 'Minimalis House',
+                    //         imageUrl: 'assets/space1.png',
+                    //         price: 120,
+                    //         rating: 4,
+                    //         city: 'Panajung',
+                    //         country: 'Pangandaran',
+                    //         photos: [],
+                    //         phones: '',
+                    //         address: '',
+                    //         mapUrl: '',
+                    //          numberOfKitchens: 1,
+                    //          numberOfCupboards: 1,
+                    //          numberOfbadrooms: 1,
+                    //       ),
+                    //     ),
+                    //     SizedBox(
+                    //       height: 30,
+                    //     ),
+                    //     SpaceCard(
+                    //       Space(
+                    //         id: 2,
+                    //         name: 'Minimalis House',
+                    //         imageUrl: 'assets/space2.png',
+                    //         price: 120,
+                    //         rating: 5,
+                    //         city: 'Panajung',
+                    //         country: 'Pangandaran',
+                    //         photos: [],
+                    //         phones: '',
+                    //         address: '',
+                    //         mapUrl: '',
+                    //          numberOfKitchens: 1,
+                    //          numberOfCupboards: 1,
+                    //          numberOfbadrooms: 1,
+                    //       ),
+                    //     ),
+                    //     SizedBox(
+                    //       height: 30,
+                    //     ),
+                    //     SpaceCard(
+                    //       Space(
+                    //         id: 3,
+                    //         name: 'Minimalis House',
+                    //         imageUrl: 'assets/space3.png',
+                    //         price: 120,
+                    //         rating: 4,
+                    //         city: 'Panajung',
+                    //         country: 'Pangandaran',
+                    //         photos: [],
+                    //         phones: '',
+                    //         address: '',
+                    //         mapUrl: '',
+                    //          numberOfKitchens: 1,
+                    //          numberOfCupboards: 1,
+                    //          numberOfbadrooms: 1,
+                    //       ),
+                    //     ),
+                    //     SizedBox(
+                    //       height: 30,
+                    //     ),
+                    //     SpaceCard(
+                    //       Space(
+                    //         id: 4,
+                    //         name: 'Minimalis House',
+                    //         imageUrl: 'assets/space4.png',
+                    //         price: 120,
+                    //         rating: 4,
+                    //         city: 'Panajung',
+                    //         country: 'Pangandaran',
+                    //         photos: [],
+                    //         phones: '',
+                    //         address: '',
+                    //         mapUrl: '',
+                    //          numberOfKitchens: 1,
+                    //          numberOfCupboards: 1,
+                    //          numberOfbadrooms: 1,
+                    //       ),
+                    //     ),
+                    //     SizedBox(
+                    //       height: 30,
+                    //     ),
+                    //   ],
+                    // );
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
+            ),
             SizedBox(
               height: 30,
             ),
@@ -261,8 +277,8 @@ class HomePage extends StatelessWidget {
                   InfoCard(
                     Info(
                         id: 1,
-                        imageUrl: 'assets/icon_gc.png',
-                        title: 'Informatioan Coronavac',
+                        imageUrl: 'assets/kembang_api.png',
+                        title: 'Pesta Kembang Api',
                         updateAt: '1 feb'),
                   ),
                   SizedBox(
@@ -271,8 +287,8 @@ class HomePage extends StatelessWidget {
                   InfoCard(
                     Info(
                         id: 2,
-                        imageUrl: 'assets/icon_gc.png',
-                        title: 'Informatioan Coronavac',
+                        imageUrl: 'assets/layangan.png',
+                        title: 'Pesta Laut Pangandaran ',
                         updateAt: '20 feb'),
                   ),
                 ],

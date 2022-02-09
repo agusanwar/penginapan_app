@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:staycationapp/models/space.dart';
 import 'package:staycationapp/pages/error_page.dart';
 import 'package:staycationapp/shared/themes.dart';
 import 'package:staycationapp/widget/facility_item.dart';
+import 'package:staycationapp/widget/rating_item.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const String url = 'https://flutter.dev';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({Key? key}) : super(key: key);
+  final Space space;
+
+  DetailPage(this.space);
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +31,8 @@ class DetailPage extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            Image.asset(
-              'assets/pnd.png',
+            Image.network(
+              space.imageUrl,
               height: 350,
               width: MediaQuery.of(context).size.width,
               fit: BoxFit.cover,
@@ -63,7 +67,7 @@ class DetailPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Alun Alun Pangandaran',
+                                  space.name,
                                   style: blackTextStyle.copyWith(
                                       fontSize: 16, fontWeight: semiBold),
                                 ),
@@ -72,7 +76,7 @@ class DetailPage extends StatelessWidget {
                                 ),
                                 Text.rich(
                                   TextSpan(
-                                    text: '\$12',
+                                    text: '\$${space.price}',
                                     style: redTextStyle.copyWith(fontSize: 16),
                                     children: [
                                       TextSpan(
@@ -86,45 +90,17 @@ class DetailPage extends StatelessWidget {
                               ],
                             ),
                             Row(
-                              children: [
-                                Image.asset(
-                                  'assets/icon_star.png',
-                                  width: 20,
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Image.asset(
-                                  'assets/icon_star.png',
-                                  width: 20,
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Image.asset(
-                                  'assets/icon_star.png',
-                                  width: 20,
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Image.asset(
-                                  'assets/icon_star.png',
-                                  width: 20,
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Image.asset(
-                                  'assets/icon_star.png',
-                                  width: 20,
-                                  color: kGreyColor,
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                              ],
-                            )
+                              children: 
+                                [1, 2, 3, 4, 5].map((index) {
+                                  return Container(
+                                    margin: EdgeInsets.only(left: 2),
+                                    child: RatningItem(
+                                      index: index,
+                                      rating: space.rating,
+                                    ),
+                                  );
+                                }).toList(),
+                            ),
                           ],
                         ),
                       ),
@@ -190,38 +166,53 @@ class DetailPage extends StatelessWidget {
                         height: 90,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
-                          children: [
-                            SizedBox(
-                              width: 25,
-                            ),
-                            Image.asset(
-                              'assets/space1.png',
-                              width: 110,
-                              height: 90,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Image.asset(
-                              'assets/space2.png',
-                              width: 110,
-                              height: 90,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Image.asset(
-                              'assets/space5.png',
-                              width: 110,
-                              height: 90,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(
-                              width: 24,
-                            ),
-                          ],
+                          children: space.photos.map((item) {
+                            return Container(
+                              margin: EdgeInsets.only(left: 24),
+                              // CLIPRREACT FOR IMAGE RADIUS
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.network(
+                                  item,
+                                  width: 110,
+                                  height: 90,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                          // [
+                          //   SizedBox(
+                          //     width: 25,
+                          //   ),
+                          //   Image.asset(
+                          //     'assets/space1.png',
+                          //     width: 110,
+                          //     height: 90,
+                          //     fit: BoxFit.cover,
+                          //   ),
+                          //   SizedBox(
+                          //     width: 20,
+                          //   ),
+                          //   Image.asset(
+                          //     'assets/space2.png',
+                          //     width: 110,
+                          //     height: 90,
+                          //     fit: BoxFit.cover,
+                          //   ),
+                          //   SizedBox(
+                          //     width: 20,
+                          //   ),
+                          //   Image.asset(
+                          //     'assets/space5.png',
+                          //     width: 110,
+                          //     height: 90,
+                          //     fit: BoxFit.cover,
+                          //   ),
+                          //   SizedBox(
+                          //     width: 24,
+                          //   ),
+                          // ],
                         ),
                       ),
                       SizedBox(
@@ -245,16 +236,17 @@ class DetailPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'jln. pananjung no. 25\npantai barat pangandaran',
+                              '${space.address}\n${space.city}',
+                              // 'jln. pananjung no. 25\npantai barat pangandaran',
                               style: greyTextStyle.copyWith(fontSize: 16),
                             ),
                             InkWell(
                               onTap: () {
                                 // call url google map
-                                launchUrl(
-                                    'https://www.google.co.id/maps/place/Pananjung,+Kec.+Pangandaran,+Kabupaten+Ciamis,+Jawa+Barat/@-7.6804786,108.6317033,14z/data=!3m1!4b1!4m5!3m4!1s0x2e65984f644bad39:0x6655c1eb7e459155!8m2!3d-7.678316!4d108.6502218');
+                                // launchUrl(
+                                //     'https://www.google.co.id/maps/place/Pananjung,+Kec.+Pangandaran,+Kabupaten+Ciamis,+Jawa+Barat/@-7.6804786,108.6317033,14z/data=!3m1!4b1!4m5!3m4!1s0x2e65984f644bad39:0x6655c1eb7e459155!8m2!3d-7.678316!4d108.6502218');
                                 // launchUrl('https://goo.gl/maps/SyZx2YjWB1yR6AeHB');
-                                // launchUrl('ababab');
+                                launchUrl(space.mapUrl);
                               },
                               child: Image.asset(
                                 'assets/btn_location.png',
@@ -275,7 +267,8 @@ class DetailPage extends StatelessWidget {
                         child: RaisedButton(
                           onPressed: () {
                             // call url phone
-                            launchUrl('tel:+6281291896643');
+                            launchUrl('tel:{space.phone}');
+                            // launchUrl('tel:+6281291896643');
                           },
                           color: kPrimaryColor,
                           shape: RoundedRectangleBorder(
