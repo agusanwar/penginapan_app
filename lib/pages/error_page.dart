@@ -35,7 +35,13 @@ class ErrorPage extends StatelessWidget {
                   width: 210,
                   height: 50,
                   // ignore: deprecated_member_use
-                  child: RaisedButton(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: kPrimaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
                     onPressed: () {
                       Navigator.pushAndRemoveUntil(
                           context,
@@ -44,10 +50,6 @@ class ErrorPage extends StatelessWidget {
                           ),
                           (route) => false);
                     },
-                    color: kPrimaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
                     child: Text(
                       'Back to Home',
                       style: whiteTextStyle.copyWith(

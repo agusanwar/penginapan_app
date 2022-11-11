@@ -7,7 +7,7 @@ import 'package:staycationapp/models/info.dart';
 import 'package:staycationapp/models/space.dart';
 import 'package:staycationapp/providers/space_provider.dart';
 import 'package:staycationapp/shared/themes.dart';
-import 'package:staycationapp/widget/bottom_navbar_item.dart';
+// import 'package:staycationapp/widget/bottom_navbar_item.dart';
 import 'package:staycationapp/widget/city_card.dart';
 import 'package:staycationapp/widget/information_card.dart';
 import 'package:staycationapp/widget/space_card.dart';
@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
     var spaceProvider = Provider.of<SpaceProvider>(context);
     // spaceProvider.getRecomondedSpaces();
     return Scaffold(
-      backgroundColor: kWhiteColor,
+      backgroundColor: kUnvailableColor,
       body: SafeArea(
         bottom: false,
         child: ListView(
@@ -300,39 +300,39 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: Container(
-        height: 60,
-        width: MediaQuery.of(context).size.width - (2 * 20),
-        margin: EdgeInsets.symmetric(
-          horizontal: 20,
-        ),
-        decoration: BoxDecoration(
-          color: kWhiteColor,
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            BottomNavbar(
-              imageUrl: 'assets/icon_home.png',
-              isActive: true,
-            ),
-            BottomNavbar(
-              imageUrl: 'assets/icon_message.png',
-              isActive: false,
-            ),
-            BottomNavbar(
-              imageUrl: 'assets/icon_card.png',
-              isActive: false,
-            ),
-            BottomNavbar(
-              imageUrl: 'assets/icon_love.png',
-              isActive: false,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: Container(
+      //   height: 60,
+      //   width: MediaQuery.of(context).size.width - (2 * 20),
+      //   margin: EdgeInsets.symmetric(
+      //     horizontal: 20,
+      //   ),
+      //   decoration: BoxDecoration(
+      //     color: kWhiteColor,
+      //     borderRadius: BorderRadius.circular(30),
+      //   ),
+      //   child: Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //     children: [
+      //       BottomNavbar(
+      //         imageUrl: 'assets/icon_home.png',
+      //         isActive: true,
+      //       ),
+      //       BottomNavbar(
+      //         imageUrl: 'assets/icon_message.png',
+      //         isActive: false,
+      //       ),
+      //       BottomNavbar(
+      //         imageUrl: 'assets/icon_card.png',
+      //         isActive: false,
+      //       ),
+      //       BottomNavbar(
+      //         imageUrl: 'assets/icon_love.png',
+      //         isActive: false,
+      //       ),
+      //     ],
+      //   ),
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

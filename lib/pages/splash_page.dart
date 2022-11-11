@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:staycationapp/pages/home_page.dart';
 import 'package:staycationapp/shared/themes.dart';
 
-
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
 
@@ -20,10 +19,7 @@ class SplashPage extends StatelessWidget {
               child: Image.asset('assets/splash.png'),
             ),
             Padding(
-              padding: EdgeInsets.only(
-                top: 50,
-                left: 30
-              ),
+              padding: EdgeInsets.only(top: 50, left: 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -39,11 +35,10 @@ class SplashPage extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
-                  Text('Find Staycation\nto stay and happy',
+                  Text(
+                    'Find Staycation\nto stay and happy',
                     style: blackTextStyle.copyWith(
-                    fontSize: 20,
-                    fontWeight: semiBold
-                    ),
+                        fontSize: 20, fontWeight: semiBold),
                   ),
                   SizedBox(
                     height: 10,
@@ -55,28 +50,30 @@ class SplashPage extends StatelessWidget {
                   SizedBox(
                     height: 40,
                   ),
-                 Container(
-                        width: 210,
-                        height: 50,
-                        // ignore: deprecated_member_use
-                        child: RaisedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomePage(),
-                              ),
-                            );
-                          },
-                          color: kPrimaryColor,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Text(
-                            'Explore Now',
-                            style: whiteTextStyle.copyWith(fontSize: 18),
-                          ),
-                        ),
+                  Container(
+                    width: 210,
+                    height: 50,
+                    // ignore: deprecated_member_use
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: kPrimaryColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
                       ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Explore Now',
+                        style: whiteTextStyle.copyWith(fontSize: 18),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

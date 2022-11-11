@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "844332205038",
+    "project_id": "staycation-58720",
+    "storage_bucket": "staycation-58720.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844332205038:android:e7df6a3396fc6d960104ff",
+        "android_client_info": {
+          "package_name": "com.anwar.staycationapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "844332205038-s5adn1a7i5t10ufqpveh123ecg823nv9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOc6UFeKrC8cZBdYRkAQpu2Wa--pOe0pY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "844332205038-s5adn1a7i5t10ufqpveh123ecg823nv9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

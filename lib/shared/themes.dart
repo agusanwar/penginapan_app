@@ -9,6 +9,7 @@ double defaultRadius = 30;
 // ignore: non_constant_identifier_names
 Color kPrimaryColor = Color(0xff0000FF);
 Color kBlackColor = Color(0xff000000);
+Color kBlackColor2 = Color(0xff000000);
 Color kWhiteColor = Color(0xffFFFFFF);
 Color kGreyColor = Color(0xff9698A9);
 Color kGreeenColor = Color(0xff0EC3AE);

@@ -8,10 +8,18 @@ import 'package:url_launcher/url_launcher.dart';
 
 const String url = 'https://flutter.dev';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   final Space space;
 
   DetailPage(this.space);
+
+  @override
+  _DetailPageState createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  bool isLightMode = true;
+  bool isWishlist = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +40,7 @@ class DetailPage extends StatelessWidget {
         child: Stack(
           children: [
             Image.network(
-              space.imageUrl,
+              widget.space.imageUrl,
               height: 350,
               width: MediaQuery.of(context).size.width,
               fit: BoxFit.cover,
@@ -48,11 +56,59 @@ class DetailPage extends StatelessWidget {
                     borderRadius: BorderRadius.vertical(
                       top: Radius.circular(30),
                     ),
-                    color: kWhiteColor,
+                    color: isLightMode ? kWhiteColor : kBlackColor,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 25,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                // Text(
+                                //   'Mode',
+                                //   style: blackTextStyle.copyWith(
+                                //       fontSize: 16, fontWeight: semiBold),
+                                // ),
+                              ],
+                            ),
+                            // Switch Mode dark mode or white mode
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  isLightMode = !isLightMode;
+                                });
+                              },
+                              child: Container(
+                                width: 90,
+                                height: 45,
+                                padding: EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    color: isLightMode
+                                        ? kBackgroundColor
+                                        : kGreyColor),
+                                child: Align(
+                                  alignment: isLightMode
+                                      ? Alignment.centerLeft
+                                      : Alignment.centerRight,
+                                  child: Image.asset(isLightMode
+                                      ? 'assets/icon_switch_dark.png'
+                                      : 'assets/icon_switch_light.png'),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       SizedBox(
                         height: 30,
                       ),
@@ -67,16 +123,20 @@ class DetailPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  space.name,
+                                  widget.space.name,
                                   style: blackTextStyle.copyWith(
-                                      fontSize: 16, fontWeight: semiBold),
+                                    fontSize: 16,
+                                    fontWeight: semiBold,
+                                    color:
+                                        isLightMode ? kBlackColor : kWhiteColor,
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 2,
                                 ),
                                 Text.rich(
                                   TextSpan(
-                                    text: '\$${space.price}',
+                                    text: '\$${widget.space.price}',
                                     style: redTextStyle.copyWith(fontSize: 16),
                                     children: [
                                       TextSpan(
@@ -90,16 +150,15 @@ class DetailPage extends StatelessWidget {
                               ],
                             ),
                             Row(
-                              children: 
-                                [1, 2, 3, 4, 5].map((index) {
-                                  return Container(
-                                    margin: EdgeInsets.only(left: 2),
-                                    child: RatningItem(
-                                      index: index,
-                                      rating: space.rating,
-                                    ),
-                                  );
-                                }).toList(),
+                              children: [1, 2, 3, 4, 5].map((index) {
+                                return Container(
+                                  margin: EdgeInsets.only(left: 2),
+                                  child: RatningItem(
+                                    index: index,
+                                    rating: widget.space.rating,
+                                  ),
+                                );
+                              }).toList(),
                             ),
                           ],
                         ),
@@ -113,7 +172,10 @@ class DetailPage extends StatelessWidget {
                         child: Text(
                           'Facilies Area',
                           style: blackTextStyle.copyWith(
-                              fontSize: 16, fontWeight: semiBold),
+                            fontSize: 16,
+                            fontWeight: semiBold,
+                            color: isLightMode ? kBlackColor : kWhiteColor,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -156,7 +218,10 @@ class DetailPage extends StatelessWidget {
                         child: Text(
                           'Photo',
                           style: blackTextStyle.copyWith(
-                              fontSize: 16, fontWeight: semiBold),
+                            fontSize: 16,
+                            fontWeight: semiBold,
+                            color: isLightMode ? kBlackColor : kWhiteColor,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -166,7 +231,7 @@ class DetailPage extends StatelessWidget {
                         height: 90,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
-                          children: space.photos.map((item) {
+                          children: widget.space.photos.map((item) {
                             return Container(
                               margin: EdgeInsets.only(left: 24),
                               // CLIPRREACT FOR IMAGE RADIUS
@@ -224,7 +289,10 @@ class DetailPage extends StatelessWidget {
                         child: Text(
                           'Location Area',
                           style: blackTextStyle.copyWith(
-                              fontSize: 16, fontWeight: semiBold),
+                            fontSize: 16,
+                            fontWeight: semiBold,
+                            color: isLightMode ? kBlackColor : kWhiteColor,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -236,7 +304,7 @@ class DetailPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '${space.address}\n${space.city}',
+                              '${widget.space.address}\n${widget.space.city}',
                               // 'jln. pananjung no. 25\npantai barat pangandaran',
                               style: greyTextStyle.copyWith(fontSize: 16),
                             ),
@@ -246,7 +314,7 @@ class DetailPage extends StatelessWidget {
                                 // launchUrl(
                                 //     'https://www.google.co.id/maps/place/Pananjung,+Kec.+Pangandaran,+Kabupaten+Ciamis,+Jawa+Barat/@-7.6804786,108.6317033,14z/data=!3m1!4b1!4m5!3m4!1s0x2e65984f644bad39:0x6655c1eb7e459155!8m2!3d-7.678316!4d108.6502218');
                                 // launchUrl('https://goo.gl/maps/SyZx2YjWB1yR6AeHB');
-                                launchUrl(space.mapUrl);
+                                launchUrl(widget.space.mapUrl);
                               },
                               child: Image.asset(
                                 'assets/btn_location.png',
@@ -264,16 +332,18 @@ class DetailPage extends StatelessWidget {
                         height: 50,
                         width: MediaQuery.of(context).size.width - (2 * 20),
                         // ignore: deprecated_member_use
-                        child: RaisedButton(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: kPrimaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
                           onPressed: () {
                             // call url phone
                             launchUrl('tel:{space.phone}');
                             // launchUrl('tel:+6281291896643');
                           },
-                          color: kPrimaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
                           child: Text(
                             'Book Now',
                             style: whiteTextStyle.copyWith(fontSize: 18),
@@ -306,9 +376,18 @@ class DetailPage extends StatelessWidget {
                       width: 40,
                     ),
                   ),
-                  Image.asset(
-                    'assets/btn_wishlist.png',
-                    width: 40,
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isWishlist = !isWishlist;
+                      });
+                    },
+                    child: Image.asset(
+                      isWishlist
+                          ? 'assets/btn_wishlist_red.png'
+                          : 'assets/btn_wishlist.png',
+                      width: 40,
+                    ),
                   ),
                 ],
               ),
